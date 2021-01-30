@@ -8,12 +8,27 @@
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-  <title>Collabicate - Dashboard</title>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/index.css">
+
+  <!-- Javascript -->
+  <script type="text/javascript" src="js/index.js"></script>
+
+  <title>Collabicate</title>
 </head>
 
 <body>
 
-  Collabicate
+  <!-- Image and text -->
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-logo navbar-spacing" href="index.html">Collabicate</a>
+    <h6 class="navbar-spacing" id="userStatus">Welcome!</h6>
+  </nav>
+
+  <!-- Content -->
+  <div class="container">
+    <h1 class="projects-heading">Your projects</h1>
+  </div>
 
   <!-- Bootstrap Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
@@ -41,13 +56,13 @@
 
   <!-- Validate Auth User -->
   <script type="text/javascript">
-      var user = firebase.auth().currentUser;
-
-      if(user) {
-
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        document.getElementById('userStatus').innerText = "Welcome, " + user.email + "!";
       } else {
         window.location.href = "login.html";
       }
+    });
   </script>
 </body>
 

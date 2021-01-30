@@ -9,17 +9,42 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
   <title>Collabicate - Register</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/register.css">
+
+  <!-- Javascript -->
+  <script type="text/javascript" src="js/register.js"></script>
 </head>
 
 <body>
 
-  Collabicate
+  <div class="register-form">
+    <form onsubmit="registerUser(event)">
+      <h2 class="text-center">Collabicate</h2>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Username" required="required" id="usernameInput">
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-control" placeholder="Email" required="required" id="emailInput">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" required="required" id="passwordInput">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">Register</button>
+      </div>
+    </form>
+  </div>
 
   <!-- Bootstrap Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
   <!-- Firebase JS SDK -->
   <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script>
+
+  <!-- Firebase Products -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-auth.js"></script>
 
   <!-- Firebase Config -->
   <script>

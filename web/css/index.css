@@ -1,0 +1,21 @@
+.navbar-spacing {
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.navbar-logo {
+  color: black;
+  font-family: monospace;
+  font-size: 30px;
+  text-decoration: none;
+}
+
+.navbar-logo:hover {
+  color: black;
+}
+
+.projects-heading {
+  padding-top: 100px;
+}
