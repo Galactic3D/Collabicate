@@ -61,50 +61,120 @@
       </div>
     </div>
 
-    <div class="card project-card" style="width: 18rem; height: 12rem;">
-      <div class="card-body text-center join-card">
-        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-        </svg>
-        <h6 class="card-subtitle mb-2 text-muted">Create or Join a Project</h6>
+    <a data-bs-toggle="modal" href="#createJoinModal" onclick="resetJoinCreateModal()">
+      <div class="card project-card" style="width: 18rem; height: 12rem;">
+        <div class="card-body text-center join-card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+          </svg>
+          <h6 class="card-subtitle mb-2 text-muted">Create or Join a Project</h6>
+        </div>
       </div>
-    </div>
+    </a>
   </div>
 
-  <!-- Bootstrap Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  <!-- Create or Join Modal -->
+  <div class="modal fade" id="createJoinModal" tabindex="-1" aria-labelledby="createOrJoinLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createOrJoinLabel">Create or Join a Project</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Selection Buttons -->
+          <div id="joinCreateButtons">
+            <div class="text-center modal-buttons">
+              <button type="button" class="btn btn-secondary" onclick="showCreateMenu()">Create a Project</button>
+            </div>
+            <div class="text-center modal-buttons">
+              <button type="button" class="btn btn-secondary" onclick="showJoinMenu()">Join a Project</button>
+            </div>
+          </div>
 
-  <!-- Firebase JS SDK -->
-  <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script>
+          <!-- Join Menu -->
+          <div id="joinMenu">
+            <form onsubmit="processJoin(event)">
+              <div class="form-group">
+                <label for="projectCodeInput">Project Join Code</label>
+                <input type="number" class="form-control" id="projectCodeInput" placeholder="Code" required="required">
+              </div>
+              <button type="submit" class="btn btn-secondary form-button">Join</button>
+            </form>
+          </div>
 
-  <!-- Firebase Products -->
-  <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-auth.js"></script>
+          <!-- Create Menu -->
+          <div id="createMenu">
+            <form onsubmit="processNewProject(event)">
+              <div class="form-group">
+                <label for="projectNameInput">Project Name</label>
+                <input type="text" class="form-control" id="projectNameInput" placeholder="Project Name" required="required">
+              </div>
+              <div class="form-group">
+                <label for="schoolOranizationInput">School or Organization</label>
+                <input type="text" class="form-control" id="schoolOranizationInput" placeholder="School or Organization" required="required">
+              </div>
+              <div class="form-group">
+                <label for="projectDescriptionInput">Project Description</label>
+                <textarea class="form-control" id="projectDescriptionInput" rows="3" required="required"></textarea>
+              </div>
+              <button type="submit" class="btn btn-secondary form-button">Create</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <!-- Firebase Config -->
-  <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-      apiKey: "AIzaSyD8BljaP-XjR21pnHkuhDW8Lc2BsfK64Hk",
-      authDomain: "collabicate-1a0af.firebaseapp.com",
-      projectId: "collabicate-1a0af",
-      storageBucket: "collabicate-1a0af.appspot.com",
-      messagingSenderId: "330828206033",
-      appId: "1:330828206033:web:fd2cf2bd4192ddf90d9af0"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-  </script>
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
-  <!-- Validate Auth User -->
-  <script type="text/javascript">
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        document.getElementById('userStatus').innerText = "Welcome, " + user.email + "!";
-      } else {
-        window.location.href = "login.html";
-      }
-    });
-  </script>
+    <!-- Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script>
+
+    <!-- Firebase Products -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-firestore.js"></script>
+
+    <!-- Firebase Config -->
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyD8BljaP-XjR21pnHkuhDW8Lc2BsfK64Hk",
+        authDomain: "collabicate-1a0af.firebaseapp.com",
+        projectId: "collabicate-1a0af",
+        storageBucket: "collabicate-1a0af.appspot.com",
+        messagingSenderId: "330828206033",
+        appId: "1:330828206033:web:fd2cf2bd4192ddf90d9af0"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      var db = firebase.firestore();
+
+      db.collection("users").add({
+          first: "Alan",
+          middle: "Mathison",
+          last: "Turing",
+          born: 1912
+        })
+        .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function(error) {
+          console.error("Error adding document: ", error);
+        });
+    </script>
+
+    <!-- Validate Auth User -->
+    <script type="text/javascript">
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          document.getElementById('userStatus').innerText = "Welcome, " + user.email + "!";
+        } else {
+          window.location.href = "login.html";
+        }
+      });
+    </script>
 </body>
 
 </html>

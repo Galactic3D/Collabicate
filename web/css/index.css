@@ -25,9 +25,37 @@
   display: inline-block;
   margin-right: 30px;
   margin-bottom: 40px;
+  overflow: hidden;
 }
 
 .join-card {
   padding-top: 50px;
   color: black;
+}
+
+.modal-buttons {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.form-group {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.form-control, .btn {
+  min-height: 38px;
+  border-radius: 2px;
+}
+
+.btn {
+  font-size: 15px;
+}
+
+.form-button {
+  margin-top: 10px;
 }
