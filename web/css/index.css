@@ -18,4 +18,16 @@
 
 .projects-heading {
   padding-top: 100px;
+  padding-bottom: 50px;
+}
+
+.project-card {
+  display: inline-block;
+  margin-right: 30px;
+  margin-bottom: 40px;
+}
+
+.join-card {
+  padding-top: 50px;
+  color: black;
 }
