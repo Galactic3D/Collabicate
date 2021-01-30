@@ -27,25 +27,29 @@ function showJoinMenu() {
 function processNewProject(event) {
   event.preventDefault();
 
-  //var projectName = document.getElementById("projectNameInput").value;
-  //var projectOrganization = document.getElementById("schoolOranizationInput").value;
-  //var projectDesctiption = document.getElementById("projectDescriptionInput").value;
+  var projectName = document.getElementById("projectNameInput").value;
+  var projectOrganization = document.getElementById("schoolOranizationInput").value;
+  var projectDesctiption = document.getElementById("projectDescriptionInput").value;
 
-  //var currentUser = firebase.auth().currentUser;
+  var currentUser = firebase.auth().currentUser;
 
-  //var projectId = getRndInteger(100000, 999999).toString();
+  var projectId = getRndInteger(100000, 999999).toString();
 
-  db.collection("users").add({
-      first: "Alan",
-      middle: "Mathison",
-      last: "Turing",
-      born: 1912
+  db.collection("groups").doc(projectId).set({
+      name: projectName,
+      organization: projectOrganization,
+      description: projectDesctiption,
+      members: [currentUser.uid]
     })
     .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Successfully create project with ID: ", docRef.id);
+
+      window.location.reload();
     })
     .catch(function(error) {
-      console.error("Error adding document: ", error);
+      console.error("Error creating the new project: ", error);
+
+      window.alert("Failed to create new project: " + error.message);
     });
 }
 
