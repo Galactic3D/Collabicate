@@ -18,59 +18,31 @@
 </head>
 
 <body>
-
   <!-- Navbar -->
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-logo navbar-spacing" href="index.html">Collabicate</a>
-    <h6 class="navbar-spacing" id="userStatus">Welcome!</h6>
+    <h6 class="navbar-spacing" id="userStatus"></h6>
   </nav>
 
   <!-- Content -->
   <div class="container">
-    <h1 class="projects-heading">Your projects</h1>
+    <h1 class="projects-heading">Your collabs</h1>
 
-    <div class="card project-card" style="width: 18rem; height: 12rem;">
-      <div class="card-body">
-        <h5 class="card-title">Math Class</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Mandeville High School</h6>
-        <p class="card-text">A very quick description of the project and why someone should join the group.</p>
+      <div id="card-container">
+
       </div>
-    </div>
 
-    <div class="card project-card" style="width: 18rem; height: 12rem;">
-      <div class="card-body">
-        <h5 class="card-title">Robotics Summer Build</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Mandeville High School</h6>
-        <p class="card-text">A very quick description of the project and why someone should join the group.</p>
-      </div>
-    </div>
-
-    <div class="card project-card" style="width: 18rem; height: 12rem;">
-      <div class="card-body">
-        <h5 class="card-title">ACT Prep</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Mandeville High School</h6>
-        <p class="card-text">A very quick description of the project and why someone should join the group.</p>
-      </div>
-    </div>
-
-    <div class="card project-card" style="width: 18rem; height: 12rem;">
-      <div class="card-body">
-        <h5 class="card-title">Chemistry Test 1</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Mandeville High School</h6>
-        <p class="card-text">A very quick description of the project and why someone should join the group.</p>
-      </div>
-    </div>
-
-    <a data-bs-toggle="modal" href="#createJoinModal" onclick="resetJoinCreateModal()">
-      <div class="card project-card" style="width: 18rem; height: 12rem;">
-        <div class="card-body text-center join-card">
-          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-          </svg>
-          <h6 class="card-subtitle mb-2 text-muted">Create or Join a Project</h6>
+      <a data-bs-toggle="modal" href="#createJoinModal" onclick="resetJoinCreateModal()" id="createJoinButton">
+        <div class="card project-card" style="width: 18rem; height: 12rem;">
+          <div class="card-body text-center join-card">
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-plus text-muted" viewBox="0 0 16 16">
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+            </svg>
+            <h6 class="card-subtitle mb-2 text-muted">Create or Join a Collab</h6>
+          </div>
         </div>
-      </div>
-    </a>
+      </a>
+    </div>
   </div>
 
   <!-- Create or Join Modal -->
@@ -78,17 +50,17 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="createOrJoinLabel">Create or Join a Project</h5>
+          <h5 class="modal-title" id="createOrJoinLabel">Create or Join a Collab</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <!-- Selection Buttons -->
           <div id="joinCreateButtons">
             <div class="text-center modal-buttons">
-              <button type="button" class="btn btn-secondary" onclick="showCreateMenu()">Create a Project</button>
+              <button type="button" class="btn btn-secondary" onclick="showCreateMenu()">Create a Collab</button>
             </div>
             <div class="text-center modal-buttons">
-              <button type="button" class="btn btn-secondary" onclick="showJoinMenu()">Join a Project</button>
+              <button type="button" class="btn btn-secondary" onclick="showJoinMenu()">Join a Collab</button>
             </div>
           </div>
 
@@ -96,7 +68,7 @@
           <div id="joinMenu">
             <form onsubmit="processJoin(event)">
               <div class="form-group">
-                <label for="projectCodeInput">Project Join Code</label>
+                <label for="projectCodeInput">Collab Code</label>
                 <input type="number" class="form-control" id="projectCodeInput" placeholder="Code" required="required">
               </div>
               <button type="submit" class="btn btn-secondary form-button">Join</button>
@@ -107,15 +79,15 @@
           <div id="createMenu">
             <form onsubmit="processNewProject(event)">
               <div class="form-group">
-                <label for="projectNameInput">Project Name</label>
-                <input type="text" class="form-control" id="projectNameInput" placeholder="Project Name" required="required">
+                <label for="projectNameInput">Collab Name</label>
+                <input type="text" class="form-control" id="projectNameInput" placeholder="Name" required="required">
               </div>
               <div class="form-group">
                 <label for="schoolOranizationInput">School or Organization</label>
-                <input type="text" class="form-control" id="schoolOranizationInput" placeholder="School or Organization" required="required">
+                <input type="text" class="form-control" id="schoolOranizationInput" placeholder="Organization" required="required">
               </div>
               <div class="form-group">
-                <label for="projectDescriptionInput">Project Description</label>
+                <label for="projectDescriptionInput">Collab Description</label>
                 <textarea class="form-control" id="projectDescriptionInput" rows="3" required="required"></textarea>
               </div>
               <button type="submit" class="btn btn-secondary form-button">Create</button>
@@ -154,9 +126,12 @@
 
     <!-- Validate Auth User -->
     <script type="text/javascript">
+    resetJoinCreateModal()
+
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           document.getElementById('userStatus').innerText = "Welcome, " + user.email + "!";
+          setProjectCards();
         } else {
           window.location.href = "login.html";
         }

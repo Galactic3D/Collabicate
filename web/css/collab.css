@@ -1,0 +1,52 @@
+.navbar-spacing {
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.navbar-logo {
+  color: black;
+  font-family: monospace;
+  font-size: 30px;
+  text-decoration: none;
+}
+
+.navbar-logo:hover {
+  color: black;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.sidebar {
+  height: 100%;
+  width: 285px;
+  position: fixed;
+  z-index: -1;
+  top: 0px;
+  left: 0;
+  margin-top: 60px;
+  background-color: white;
+  overflow-x: hidden;
+  padding-top: 20px;
+  box-shadow: 1px 1px 3px #c9c9c9;
+}
+
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: black;
+  display: block;
+}
+
+.sidebar a:hover {
+  color: black;
+}
+
+.content {
+  margin-left: 285px;
+  padding: 0px 10px;
+}
