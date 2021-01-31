@@ -26,16 +26,92 @@
 
   <!-- Sidebar -->
   <div class="sidebar">
-    <a href="#">Discussion</a>
-    <a href="#">Files</a>
-    <a href="#">Tasks</a>
-    <a href="#">Guides</a>
-    <a href="#">Quizes</a>
+    <a href="#" onclick="openDiscussion()">Discussion</a>
+    <a href="#" onclick="openFiles()">Files</a>
+    <a href="#" onclick="openTasks()">Tasks</a>
+    <a href="#" onclick="openGuides()">Guides</a>
+    <a href="#" onclick="openQuizes()">Quizes</a>
+
+    <div class="move-bottom">
+      <a href="#" onclick="openMembers()">Members</a>
+      <a data-bs-toggle="modal" href="#inviteModal">Invite</a>
+    </div>
   </div>
 
   <!-- Page content -->
   <div class="content">
-    page content
+    <!-- Discussion -->
+    <div id="discussion" class="hide">
+      <div class="message-box" id="messageBox">
+
+      </div>
+
+      <div class="chat-box">
+        <div class="d-table-cell w-100">
+          <textarea class="form-control" id="chatBoxInput" placeholder="Enter a message..." rows="3" required="required" style="resize: none;"></textarea>
+        </div>
+        <div class="d-table-cell align-middle">
+          <button class="btn btn-secondary message-send-button" onclick="processNewMessage()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-up-right-square-fill" viewBox="0 0 16 16">
+              <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12zM5.904 10.803L10 6.707v2.768a.5.5 0 0 0 1 0V5.5a.5.5 0 0 0-.5-.5H6.525a.5.5 0 1 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 .707.707z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Files -->
+    <div id="files" class="hide">
+      Files
+    </div>
+
+    <!-- Tasks -->
+    <div id="tasks" class="hide">
+      Tasks
+    </div>
+
+    <!-- Guides -->
+    <div id="guides" class="hide">
+      Guides
+    </div>
+
+    <!-- Quizes -->
+    <div id="quizes" class="hide">
+      Quizes
+    </div>
+
+    <!-- Members -->
+    <div id="members" class="hide">
+      <div class="center">
+        <h3 class="members-label-spacing">Members</h3>
+      </div>
+
+      <table id="membersTable" class="table table-stripped">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Invite Members Modal -->
+  <div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="inviteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="inviteLabel">Invite Members</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body center invite-spacing">
+          <h4 id="inviteCollabCode">Collab Code: </h4>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Bootstrap Bundle -->
@@ -67,9 +143,12 @@
 
   <!-- Validate Auth User -->
   <script type="text/javascript">
+    loadPages();
+    openDiscussion();
+
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-
+        messageListener();
       } else {
         window.location.href = "login.html";
       }

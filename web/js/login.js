@@ -1,6 +1,6 @@
 function verifyLogin(event) {
   event.preventDefault();
-  
+
   var email = document.getElementById('emailInput').value;
   var password = document.getElementById('passwordInput').value;
 
