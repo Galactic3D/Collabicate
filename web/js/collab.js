@@ -223,5 +223,7 @@ function messageListener() {
     }
 
     oldMessageBox.parentNode.replaceChild(newMessageBox, oldMessageBox);
+
+    newMessageBox.scrollBy(0, 100000);
   });
 }

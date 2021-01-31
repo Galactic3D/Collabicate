@@ -1,3 +1,7 @@
+html, body {
+  overflow: hidden;
+}
+
 .navbar-spacing {
   padding-left: 50px;
   padding-right: 50px;
@@ -25,9 +29,8 @@
   width: 285px;
   position: fixed;
   z-index: -1;
-  top: 0px;
+  top: 71px;
   left: 0;
-  margin-top: 60px;
   background-color: white;
   overflow-x: hidden;
   padding-top: 20px;
@@ -52,8 +55,8 @@
 }
 
 .move-bottom {
-  position: absolute;
-  bottom: 80px;
+  position: fixed;
+  bottom: 10px;
 }
 
 .center {
@@ -94,9 +97,13 @@
 
 .message-box {
   padding-top: 30px;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: 20px;
+  padding-left: 20px;
   overflow-x: hidden;
   overflow-y: scroll;
-  height: 600px;
+  height: 680px;
+}
+
+.message-box::-webkit-scrollbar {
+  display: none;
 }
