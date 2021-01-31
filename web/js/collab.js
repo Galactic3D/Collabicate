@@ -227,3 +227,181 @@ function messageListener() {
     newMessageBox.scrollBy(0, 100000);
   });
 }
+
+function loadTasks() {
+  db.collection("groups").doc(groupId).get().then((snapshot) => {
+    if (snapshot.exists) {
+      var data = snapshot.data();
+
+      var tasks = data.tasks;
+
+      for (task of tasks) {
+        var taskData = task.split("--sdfsdf--fdf-sds--");
+
+        let card = document.createElement('div');
+        card.className = "card";
+        card.style.width = "30rem";
+        card.style.height = "13rem";
+        card.style.marginTop = "30px";
+        card.style.marginBottom = "30px;"
+
+        let cardBody = document.createElement('div');
+        cardBody.className = 'card-body';
+
+        let title = document.createElement('h5');
+        title.className = "card-title";
+        title.style.fontSize = "18px";
+        title.innerText = taskData[0];
+
+        let text = document.createElement('p');
+        text.innerText = taskData[1];
+        text.style.color = "black";
+        text.className = "card-text";
+
+        cardBody.appendChild(title);
+        cardBody.appendChild(text);
+        card.appendChild(cardBody);
+        document.getElementById("tasks-container").appendChild(card);
+      }
+    }
+  });
+}
+
+function processNewTask(event) {
+  event.preventDefault();
+
+  var taskName = document.getElementById("taskNameInput");
+  var taskDescription = document.getElementById("taskDescriptionInput");
+
+
+  db.collection("groups").doc(groupId).update({
+    tasks: firebase.firestore.FieldValue.arrayUnion(taskName.value + "--sdfsdf--fdf-sds--" + taskDescription.value)
+  });
+
+  let card = document.createElement('div');
+  card.className = "card";
+  card.style.width = "30rem";
+  card.style.height = "13rem";
+  card.style.marginTop = "30px";
+  card.style.marginBottom = "30px;"
+
+  let cardBody = document.createElement('div');
+  cardBody.className = 'card-body';
+
+  let title = document.createElement('h5');
+  title.className = "card-title";
+  title.style.fontSize = "18px";
+  title.innerText = taskName.value;
+
+  let text = document.createElement('p');
+  text.innerText = taskDescription.value;
+  text.style.color = "black";
+  text.className = "card-text";
+
+  cardBody.appendChild(title);
+  cardBody.appendChild(text);
+  card.appendChild(cardBody);
+  document.getElementById("tasks-container").appendChild(card);
+
+  taskName.value = "";
+  taskDescription.value = "";
+}
+
+function processNewGuide(event) {
+  event.preventDefault();
+
+  var guideName = document.getElementById("guideNameInput");
+  var guideDescription = document.getElementById("guideDescriptionInput");
+
+  db.collection("users").doc(firebase.auth().currentUser.uid).get().then((doc) => {
+    if (doc.exists) {
+      var data = doc.data();
+
+      var userName = data.name;
+
+      if (userName) {
+        db.collection("groups").doc(groupId).collection("guides").add({
+          author: userName,
+          title: guideName.value,
+          content: guideDescription.value,
+          realContent: " "
+        }).then(function(guideDoc) {
+          window.location.href = "guide.html?id=" + groupId + "&guide=" + guideDoc.id;
+        });
+      } else {
+        db.collection("groups").doc(groupId).collection("guides").add({
+          author: firebase.auth().currentUser.email,
+          title: guideName.value,
+          content: guideDescription.value,
+          realContent: " "
+        }).then(function(guideDoc) {
+          window.location.href = "guide.html?id=" + groupId + "&guide=" + guideDoc.id;
+        });
+      }
+    } else {
+      db.collection("groups").doc(groupId).collection("guides").add({
+        author: firebase.auth().currentUser.email,
+        title: guideName.value,
+        content: guideDescription.value,
+        realContent: " "
+      }).then(function(guideDoc) {
+        window.location.href = "guide.html?id=" + groupId + "&guide=" + guideDoc.id;
+      });
+    }
+  });
+}
+
+function loadGuides() {
+  db.collection("groups").doc(groupId).collection("guides").get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+      var guideData = doc.data();
+
+      addGuide(guideData.title, guideData.content, guideData.author, doc.id);
+    });
+  });
+}
+
+function addGuide(title, content, author, guideID) {
+  var tbodyRef = document.getElementById('guidesTable').getElementsByTagName('tbody')[0];
+
+  var memberRow = tbodyRef.insertRow();
+
+  var nameCell = memberRow.insertCell();
+  var aboutCell = memberRow.insertCell();
+  var authorCell = memberRow.insertCell();
+  var actionCell = memberRow.insertCell();
+
+  var nameText = document.createElement('a');
+  nameText.innerText = title;
+  nameText.href = "guide-view.html?id=" + groupId + "&guide=" + guideID;
+  nameCell.appendChild(nameText);
+
+  var aboutText = document.createTextNode(content);
+  aboutCell.appendChild(aboutText);
+
+  var authorText = document.createTextNode(author);
+  authorCell.appendChild(authorText);
+
+  var editText = document.createElement('a');
+  editText.innerText = "edit";
+  editText.href = "guide.html?id=" + groupId + "&guide=" + guideID;
+  actionCell.appendChild(editText);
+}
+
+function processFileUpload(event) {
+  event.preventDefault();
+
+console.log(document.getElementById("inputGroupFile04").value);
+  firebase.storage().ref().child(groupId + "/").put(document.getElementById("inputGroupFile04").value)
+    .then(snapshot => {
+      console.log('Uploaded.');
+    });
+}
+
+function loadFiles() {
+  firebase.storage().ref().child(groupId).listAll().then((res) => {
+    res.items.forEach((itemRef) => {
+      console.log(itemRef);
+    });
+  });
+}
